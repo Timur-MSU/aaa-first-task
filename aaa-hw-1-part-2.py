@@ -1,3 +1,5 @@
+from collections import Counter
+
 queries = [
     "чехол",
     "iphone",
@@ -9,15 +11,18 @@ queries = [
     "чехол",
     "iphone",
 ]
-print(len(queries))
 
-from collections import Counter
 
-print(dict(Counter(queries)))
+def main():
+    print("Всего поисковых запросов в ленте:", len(queries))
 
-counter_queries = dict(Counter(queries))
-print(max(counter_queries, key=counter_queries.get))
+    counter_queries = dict(Counter(queries))
+    print("Сколько раз ввели каждый запрос:", counter_queries)
 
-print(max(counter_queries.values()) / len(queries))
+    print("Запрос, который вводили чаще всего:", max(counter_queries, key=counter_queries.get))
+    print("Какую долю всех поисков он занимает:", max(counter_queries.values()) / len(queries))
+    print("Запросы, встретившиеся один раз:", [query for query, count in counter_queries.items() if count == 1])
 
-print([query for query, count in counter_queries.items() if count == 1])
+
+if __name__ == "__main__":
+    main()

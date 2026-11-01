@@ -6,12 +6,23 @@ days = [
     {"day": "пт", "orders": 30, "revenue": 48_000, "returns": 3},
 ]
 
-print(sum(day['revenue'] for day in days))
 
-days_revenue = {day["day"]: day["revenue"] for day in days}
+def main():
+    print("Выручка за всю неделю:", sum(day["revenue"] for day in days))
 
-print(max(days_revenue, key=days_revenue.get))
+    days_revenue = {day["day"]: day["revenue"] for day in days}
+    print("День с самой большой выручкой:", max(days_revenue, key=days_revenue.get))
 
-print({day["day"]: day["revenue"] / (day["orders"] - day["returns"]) for day in days})
+    print(
+        "Средняя выручка на один заказ в каждый день:",
+        {day["day"]: day["revenue"] / day["orders"] for day in days},
+    )
 
-print([day["day"] for day in days if day["returns"] / day["orders"] > 0.2])
+    print(
+        "Дни, где возвратов больше 20% заказов:",
+        [day["day"] for day in days if day["returns"] / day["orders"] > 0.2],
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -7,17 +7,24 @@ orders = [
     {"id": 6, "buyer": "gleb", "status": "returned", "amount": 2_100},
 ]
 
-sum_amount = 0
-for order in orders:
-    if order['status'] == 'returned':
-        sum_amount += order['amount']
-print(sum_amount)
 
-print(set([order['buyer'] for order in orders if order['status'] == "returned"]))
+def main():
+    sum_amount = 0
+    for order in orders:
+        if order["status"] == "returned":
+            sum_amount += order["amount"]
+    print("Сумма возвратов:", sum_amount)
 
-from collections import Counter
+    print("Кто хотя бы раз вернул заказ:", set([order["buyer"] for order in orders if order["status"] == "returned"]))
 
-print(dict(Counter(order['buyer'] for order in orders if order['status'] == "delivered")))
+    delivered_count = len([order["id"] for order in orders if order["status"] == "delivered"])
+    print("Сколько заказов доставлено покупателю:", delivered_count)
 
-print(sum(order["amount"] for order in orders if order["status"] == "delivered") / len(
-    [order["id"] for order in orders if order["status"] == "delivered"]))
+    print(
+        "Средний чек доставленных заказов:",
+        sum(order["amount"] for order in orders if order["status"] == "delivered") / delivered_count,
+    )
+
+
+if __name__ == "__main__":
+    main()
